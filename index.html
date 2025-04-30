@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/images/favicon-32x32.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+  <style>
+  
+    :root {
+  
+      --color-red: hsl(4, 100%, 67%);
+      --color-dark-red: hsl(347, 92%, 65%);
+      --color-blue-800: hsl(234, 29%, 20%);
+      --color-blue-700: hsl(235, 18%, 26%);
+      --color-grey: hsl(0, 0%,58%);
+      --color-white: hsl(0, 0%, 100%);
+  
+    }
+  
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+  
+    p {
+      line-height: 1.5rem;
+    }
+  
+    html {
+      background-color: var(--color-blue-800);
+    }
+  
+    body {
+      font-family: "Roboto";
+      font-weight: 400;
+      font-size: 0.9rem;
+      color: var(--color-blue-700);
+    }
+  
+    img {
+      display: block;
+      width: 100%;
+    }
+  
+    .after-submisson img {
+      aspect-ratio: 1 / 1;
+      width: 3.5rem;
+    }
+  
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--color-blue-800);
+    }
+  
+    body {
+      height: 100dvh;
+    }
+  
+    main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+    }
+  
+    section {
+      display: grid;
+      grid-template-areas: "a" "b";
+      gap: 0.6rem;
+      width: 100%;
+      max-width: 50rem;
+      background-color: var(--color-white);
+    }
+  
+    .after-submisson {
+      height: 100%;
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+  
+    .after-submisson > div {
+      display: grid;
+      gap: 1.5rem;
+      margin-top: 5rem;
+      align-content: center;
+    }
+  
+    picture {
+      grid-area: a;
+    }
+  
+    li {
+      display: flex;
+      align-items: start;
+      gap: 0.75rem;
+    }
+  
+    ul {
+      list-style: none;
+      margin-bottom: 0.75rem;
+    }
+    
+    ul > :not(:first-child,:last-child) {
+      margin-block: 0.75rem;
+    }
+    
+    input::placeholder {
+      color: var(--color-grey);
+    }
+    
+    button {
+      background-color: var(--color-blue-800);
+      color: var(--color-white);
+      font-family: inherit;
+      font-weight: 700;
+      font-size: 0.8rem;
+      border-radius: 0.5rem;
+      border: none;
+      padding: 1rem;
+      transition: transform 0.05s ease-out;
+    }
+  
+    button:hover {
+      background: linear-gradient(90deg, var(--color-dark-red) ,var(--color-red));
+      cursor: pointer;
+      position: relative;
+      z-index: 1;
+      transform: scale(1.02);
+      transition: transform 0.1s ease-in;
+    }
+
+    button:active {
+      transform: none;
+    }
+  
+    button:hover::after {
+      content: "";
+      background: inherit;
+      position: absolute;
+      block-size: 1.75rem;
+      transform: scaleX(1.02);
+      inset: 0;
+      top: 2rem;
+      z-index: -1;
+      filter: blur(0.75rem) opacity(0.5);
+    }
+    
+    input:hover:not(.invalid){
+      outline: 0.1rem solid rgba(0,0,0,0.5);
+      cursor: pointer;
+    }
+  
+    form {
+      display: grid;
+      gap: 0.25rem;
+      
+      & > :first-child {
+        display: flex;
+        & > .error {
+          display: none;
+          margin-left: auto;
+          color: var(--color-red);
+        }
+      }
+  
+      & > :last-child {
+        display: grid;
+        gap: 1.25rem;
+      }
+  
+      & > :first-child > * {
+        color: var(--color-blue-800);
+        font-weight: 700;
+        font-size: 0.8rem;
+      }
+  
+      input, button {
+        border-radius: 0.5rem;
+        border: none;
+        padding: 1rem;
+      }
+  
+      input:not(.invalid){
+        outline: 0.1rem solid rgba(0,0,0,0.1);
+        font-family: inherit;
+      }
+      input.invalid {
+        outline: none;
+      }
+    }
+  
+    input:invalid:not(:focus) {
+      color: var(--color-red);
+    }
+      
+    .icon {
+      display: inline;
+      block-size: 1.25rem;
+      inline-size: 1.25rem;
+    }
+  
+    .text-part {
+      display: grid;
+      gap: 1.25rem;
+      padding: 1.5rem;
+      grid-area: b;
+    }
+  
+    .invalid {
+      border: 2px solid var(--color-red);
+      background-color: rgba(250,0,0,0.1);
+    }
+  
+    @media(width > 800px) {
+      section {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas: "b a";
+        padding: 1rem;
+        border-radius: 1.5rem;
+      }
+      .after-submisson {
+        justify-content: start;
+        inline-size: 100%;
+        block-size: min-content;
+        max-inline-size: 28rem;
+        padding: 2rem;
+        padding-inline: 3rem;
+        gap: 2rem;
+  
+        & > div {
+          margin: 0;
+        }
+      }
+  
+      h1 {
+        font-size: 3rem;
+      }
+  
+      .text-part {
+        padding-block: 4rem;
+      }
+    }
+  
+  </style>  
+
+  <title>Frontend Mentor | Newsletter sign-up form with success message</title>
+
+</head>
+<body>
+  <main>
+    <section id="submisson-section">
+      
+      <picture>
+        <source srcset="assets/images/illustration-sign-up-desktop.svg" alt="" media="(width > 800px)">
+        <img src="assets/images/illustration-sign-up-mobile.svg" alt="">
+      </picture>
+      
+      <div class="text-part">
+        
+        <h1>Stay updated!</h1>
+        <p>Join 60,000+ product managers receiving monthly updates on:</p>
+        
+        <ul>
+          <li><img class="icon" src="assets/images/icon-list.svg">Product discovery and building what matters</li>
+          <li><img class="icon" src="assets/images/icon-list.svg">Measuring to ensure updates are a success</li>
+          <li><img class="icon" src="assets/images/icon-list.svg">And much more!</li>
+        </ul>
+        
+        <form novalidate action="#">
+          
+          <div>
+            <p>Email address</p>
+            <p id="error" class="error">Valid email required</p>
+          </div>
+
+          <div>
+            <input type="email" name="email" id="email" placeholder="email@company.com">
+            <button type="submit">Subscribe to monthly newsletter</button>
+          </div>
+
+        </form>
+      
+      </div>
+
+    </section>
+
+    <section id="msg-section" class="after-submisson" style="display: none;">
+      
+      <div>
+        <img src="assets/images/icon-success.svg" alt="">
+        <h1>Thanks for subscribing!</h1>
+        <p>
+          A confirmation email has been sent to <strong><span id="email-span">ash@loremcompany.com</span></strong>.
+          Please open it and click the button inside to confirm your subscription.
+        </p>
+      </div>
+      
+      <button>Dismiss message</button>
+
+    </section>
+
+  </main>
+  <script>
+    const email_input = document.getElementById("email");
+    const error_msg = document.getElementById("error");
+    const page_form = document.querySelector("form");
+    const submisson_section = document.getElementById("submisson-section");
+    const submisson_msg = document.getElementById("msg-section");
+    const email_span = document.getElementById("email-span");
+    
+    page_form.addEventListener("submit", function(e) {
+      e.preventDefault();
+      if ( !email_input.checkValidity() || email_input.value === "" ) {
+        OnInvalidSubmisson();
+      }
+      else {
+        OnValidSubmisson();
+      }
+    })
+  
+    function OnValidSubmisson() {
+      error_msg.style.display = "none";
+      email_input.classList.remove("invalid");
+      submisson_section.style.display = "none";
+      email_span.innerText = email_input.value;
+      submisson_msg.style.display = "flex";
+    }
+
+    function OnInvalidSubmisson() {
+      error_msg.style.display = "block";
+      email_input.classList.add("invalid");
+    }
+  
+  </script>
+</body>
+</html>
